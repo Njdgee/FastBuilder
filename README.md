@@ -2,7 +2,7 @@
 
 FastBuilder is an in-progress Minecraft plugin designed to enhance your bridging experience.
 
-##It is prohibited to use this plugin for profit
+## It is prohibited to use this plugin for profit
 
 ## Features
 
