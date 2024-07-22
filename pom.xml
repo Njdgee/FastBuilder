@@ -47,7 +47,7 @@
         <filtering>true</filtering>
       </resource>
     </resources>
-      <directory>C:\Users\IDEA3C\IdeaProjects\FastBuilder\server\plugins</directory>
+      <directory>${project.basedir}/server/plugins</directory>
   </build>
 
   <repositories>
