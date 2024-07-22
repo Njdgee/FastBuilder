@@ -1,0 +1,6 @@
+name: FastBuilder
+version: '1.0-SNAPSHOT'
+main: com.njdge.fastbuilder.FastBuilder
+api-version: '1.8'
+commands:
+  edit:

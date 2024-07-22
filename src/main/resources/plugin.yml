@@ -1,0 +1,6 @@
+name: FastBuilder
+version: '${project.version}'
+main: com.njdge.fastbuilder.FastBuilder
+api-version: '1.8'
+commands:
+  edit:
