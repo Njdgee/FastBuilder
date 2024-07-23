@@ -3,6 +3,7 @@ package com.njdge.fastbuilder.profile;
 import com.njdge.fastbuilder.arena.Arena;
 import com.njdge.fastbuilder.utils.PlayerUtils;
 import lombok.Data;
+import org.bson.Document;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -79,5 +80,18 @@ public class PlayerProfile {
             return;
         }
         this.timer.stop();
+    }
+
+    public Document toDoc() {
+        Document doc = new Document()
+                .append("uuid", uuid.toString())
+                .append("name", name)
+                .append("state", state.name())
+                .append("blockType", blockType.name())
+                .append("pickaxeType", pickaxeType.name())
+                .append("pb", pb)
+                .append("time", time)
+                .append("blocks", blocks);
+        return doc;
     }
 }

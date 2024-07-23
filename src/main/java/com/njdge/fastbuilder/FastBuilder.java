@@ -2,6 +2,7 @@ package com.njdge.fastbuilder;
 
 import com.njdge.fastbuilder.adapters.ScoreboardAdapter;
 import com.njdge.fastbuilder.arena.ArenaManager;
+import com.njdge.fastbuilder.database.MongoManager;
 import com.njdge.fastbuilder.profile.ProfileManager;
 import com.njdge.fastbuilder.profile.command.EditCommand;
 import com.njdge.fastbuilder.profile.listener.ProfileListener;
@@ -20,9 +21,10 @@ public final class FastBuilder extends JavaPlugin {
     private ArenaManager arenaManager;
     private ProfileManager profileManager;
     private WeatherManager weatherManager;
+    private MongoManager mongoManager;
 
     private BasicConfigFile profileConfig;
-
+    private BasicConfigFile config;
 
     @Override
     public void onEnable() {
@@ -41,9 +43,11 @@ public final class FastBuilder extends JavaPlugin {
     }
 
     void loadManagers() {
+        this.mongoManager = new MongoManager(this);
         this.arenaManager = new ArenaManager(this);
         this.profileManager = new ProfileManager(this);
         this.weatherManager = new WeatherManager(this);
+
     }
 
     void loadGeneral() {
@@ -52,6 +56,7 @@ public final class FastBuilder extends JavaPlugin {
 
     void loadConfig() {
         this.profileConfig = new BasicConfigFile(this, "profile.yml");
+        this.config = new BasicConfigFile(this, "config.yml");
     }
 
     void loadCommand() {
@@ -64,6 +69,8 @@ public final class FastBuilder extends JavaPlugin {
         assemble.setTicks(2);
         assemble.setAssembleStyle(AssembleStyle.CUSTOM);
     }
+
+
 
     void loadListener() {
         Bukkit.getPluginManager().registerEvents(new ProfileListener(this), this);
