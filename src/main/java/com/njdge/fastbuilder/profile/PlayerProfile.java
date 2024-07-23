@@ -1,14 +1,16 @@
+//Real time (Not get fake result due to tps) - bedtwL 07/23/2024
 package com.njdge.fastbuilder.profile;
 
 import com.njdge.fastbuilder.arena.Arena;
 import com.njdge.fastbuilder.utils.PlayerUtils;
 import lombok.Data;
-import org.bson.Document;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import java.text.DecimalFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -29,20 +31,21 @@ public class PlayerProfile {
     private boolean finished = false;
     private boolean placed = false;
     private List<Location> placedBlocks;
-    private Long time,pb;
+    private Long pb;
     private int blocks;
-    private TimerTicker timer;
+    //private TimerTicker timer;
 
+    private LocalDateTime startTime,endTime;
 
     public PlayerProfile(UUID uuid) {
         this.uuid = uuid;
-        this.time = 0L;
+        //this.time = 0L;
         this.blocks = 0;
         this.placedBlocks = new ArrayList<>();
         this.blockType = Material.SANDSTONE;
         this.pickaxeType = Material.WOOD_PICKAXE;
-    }
 
+    }
     public void clearBlocks() {
         if (placedBlocks.isEmpty()) return;
         sequential(this);
@@ -57,12 +60,13 @@ public class PlayerProfile {
         player.getInventory().setItem(0, block.type(this.getBlockType()).build());
         player.getInventory().setItem(1, block.type(this.getBlockType()).build());
         player.getInventory().setItem(2, pickaxe.type(this.getPickaxeType()).build());
-        player.getInventory().setItem(7, replay.build());
-        player.getInventory().setItem(8, shop.build());
+        // Marked due to these item didnt have any feature. - bedtwL 07/23/2024
+        //player.getInventory().setItem(7, replay.build());
+        //player.getInventory().setItem(8, shop.build());
     }
 
     public String getTimeString() {
-        return formatTime(this.time);
+        return formatTime(this.getTime());
     }
 
     public String getPBString() {
@@ -70,28 +74,25 @@ public class PlayerProfile {
     }
 
     public void startTimer() {
-        this.time = 0L;
-        TimerTicker timer = new TimerTicker(0, 1, false,this);
-        this.timer = timer;
+        //TimerTicker timer = new TimerTicker(0, 1, false,this);
+        //this.timer = timer;
+        this.startTime= LocalDateTime.now();
+        this.endTime=null;
     }
 
     public void stopTimer() {
-        if (this.timer == null) {
+        /*if (this.timer == null) {
             return;
         }
-        this.timer.stop();
+        this.timer.stop();*/
+        endTime=LocalDateTime.now();
     }
-
-    public Document toDoc() {
-        Document doc = new Document()
-                .append("uuid", uuid.toString())
-                .append("name", name)
-                .append("state", state.name())
-                .append("blockType", blockType.name())
-                .append("pickaxeType", pickaxeType.name())
-                .append("pb", pb)
-                .append("time", time)
-                .append("blocks", blocks);
-        return doc;
+    public Long getTime()
+    {
+        if (endTime==null)
+        {
+            return Duration.between(startTime, LocalDateTime.now()).toMillis();
+        }
+        return Duration.between(startTime, endTime).toMillis();
     }
 }
