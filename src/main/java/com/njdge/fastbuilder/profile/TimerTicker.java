@@ -1,3 +1,5 @@
+//Marked by bedtwL - 07/23/2024
+/*
 package com.njdge.fastbuilder.profile;
 
 import com.njdge.fastbuilder.utils.TaskTicker;
@@ -35,3 +37,4 @@ public class TimerTicker extends TaskTicker {
         this.cancel();
     }
 }
+*/
