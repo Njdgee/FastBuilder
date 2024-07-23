@@ -89,12 +89,11 @@ public class PlayerProfile {
     }
     public Long getTime()
     {
-        if (endTime==null)
-        {
-            return Duration.between(startTime, LocalDateTime.now()).toMillis();
-        }
         if (startTime==null)
             return 0L;
+        if (endTime==null)
+            return Duration.between(startTime, LocalDateTime.now()).toMillis();
+
         return Duration.between(startTime, endTime).toMillis();
     }
 }
