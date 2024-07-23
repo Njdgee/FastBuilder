@@ -93,6 +93,8 @@ public class PlayerProfile {
         {
             return Duration.between(startTime, LocalDateTime.now()).toMillis();
         }
+        if (startTime==null)
+            return 0L;
         return Duration.between(startTime, endTime).toMillis();
     }
 }
