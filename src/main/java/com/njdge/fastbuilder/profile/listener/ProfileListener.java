@@ -162,7 +162,7 @@ public class ProfileListener implements Listener {
         Arena arena = profile.getArena();
         Island island = arena.getIsland(player);
 
-        profile.setBlocks(profile.getBlocks() + 1);
+
 
         if (profile.getState().equals(ProfileState.PLAYING)) {
             if (!island.getPlaceableCuboid().isIn(e.getBlock().getLocation())) {
@@ -174,6 +174,8 @@ public class ProfileListener implements Listener {
                     profile.setPlaced(true);
                     profile.startTimer();
                 }
+                //Fix scoreboard blocks still adding even if placing on "sus place" - bedtwL 07/24/2024
+                profile.setBlocks(profile.getBlocks() + 1);
                 profile.getPlacedBlocks().add(e.getBlock().getLocation());
             }
         } else if (profile.getState().equals(ProfileState.EDITING)) {
