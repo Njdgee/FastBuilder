@@ -1,5 +1,7 @@
 package com.njdge.fastbuilder;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoDatabase;
 import com.njdge.fastbuilder.adapters.ScoreboardAdapter;
 import com.njdge.fastbuilder.arena.ArenaManager;
 import com.njdge.fastbuilder.database.MongoManager;
@@ -10,11 +12,14 @@ import com.njdge.fastbuilder.utils.BasicConfigFile;
 import com.njdge.fastbuilder.utils.assemble.Assemble;
 import com.njdge.fastbuilder.utils.assemble.AssembleStyle;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-@Getter
+import java.util.ArrayList;
 
+@Getter
+@Setter
 public final class FastBuilder extends JavaPlugin {
     @Getter
     public static FastBuilder instance;
@@ -22,9 +27,8 @@ public final class FastBuilder extends JavaPlugin {
     private ProfileManager profileManager;
     private WeatherManager weatherManager;
     private MongoManager mongoManager;
-
     private BasicConfigFile profileConfig;
-    private BasicConfigFile config;
+    private BasicConfigFile configFile;
 
     @Override
     public void onEnable() {
@@ -56,7 +60,7 @@ public final class FastBuilder extends JavaPlugin {
 
     void loadConfig() {
         this.profileConfig = new BasicConfigFile(this, "profile.yml");
-        this.config = new BasicConfigFile(this, "config.yml");
+        this.configFile = new BasicConfigFile(this, "config.yml");
     }
 
     void loadCommand() {

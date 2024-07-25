@@ -86,7 +86,6 @@ public class PlayerProfile {
         Document doc = new Document()
                 .append("uuid", uuid.toString())
                 .append("name", name)
-                .append("state", state.name())
                 .append("blockType", blockType.name())
                 .append("pickaxeType", pickaxeType.name())
                 .append("pb", pb)
