@@ -51,6 +51,7 @@ public class ProfileListener implements Listener {
         }
 
         PlayerProfile profile = plugin.getProfileManager().login(name, uuid);
+        System.out.println("success");
         profile.setState(ProfileState.PLAYING);
     }
 

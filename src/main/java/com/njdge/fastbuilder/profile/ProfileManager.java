@@ -7,6 +7,7 @@ import lombok.Data;
 import org.bson.Document;
 import org.bukkit.Material;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -20,6 +21,7 @@ public class ProfileManager {
         profiles = new HashMap<>();
         this.plugin = plugin;
         this.database = plugin.getMongoManager().getDatabase();
+        createCollection();
     }
 
     public PlayerProfile login(String name, UUID uuid) {
@@ -49,19 +51,16 @@ public class ProfileManager {
         profile.setBlockType(Material.SANDSTONE);
         profile.setPickaxeType(Material.WOOD_PICKAXE);
         profile.setPb(null);
+        database.getCollection("fastbuilder_profiles").insertOne(new Document(profile.toDoc()));
     }
 
     public void load(PlayerProfile profile) {
         UUID uuid = profile.getUuid();
-
         if (plugin.getMongoManager().isEnabled()) {
-            if (database.getCollection("fastbuilder_profiles").find(Filters.eq("uuid", uuid.toString())).first() == null) {
-                loadDefault(profile);
-            } else {
-                Document document = (Document) database.getCollection("fastbuilder_profiles").find(Filters.eq("uuid", uuid.toString())).first();
+                Document document = database.getCollection("fastbuilder_profiles").find(Filters.eq("uuid", uuid.toString())).first();
                 importFromBson(document, profile);
-            }
         }else {
+            System.out.println(4);
             profile.setName(plugin.getProfileConfig().getConfiguration().getString(profile.getUuid().toString() + ".name"));
             profile.setBlockType(Material.valueOf(plugin.getProfileConfig().getConfiguration().getString(profile.getUuid().toString() + ".blockType")));
             profile.setPickaxeType(Material.valueOf(plugin.getProfileConfig().getConfiguration().getString(profile.getUuid().toString() + ".pickaxeType")));
@@ -80,7 +79,17 @@ public class ProfileManager {
             plugin.getProfileConfig().save();
         }
     }
+    public void createCollection() {
 
+        boolean collectionExists = database.listCollectionNames()
+                .into(new ArrayList<>())
+                .contains("fastbuilder_profiles");
+
+        if (!collectionExists) {
+            database.createCollection("fastbuilder_profiles");
+        }
+
+    }
     public boolean loginBefore(UUID uuid) {
         if (plugin.getMongoManager().isEnabled()) {
             return database.getCollection("fastbuilder_profiles").find(Filters.eq("uuid", uuid.toString())).first() != null;

@@ -21,13 +21,13 @@ public class MongoManager {
     public MongoManager(FastBuilder plugin) {
         this.plugin = plugin;
         this.init();
-        this.enabled = plugin.getConfig().getConfiguration().getBoolean("mongo.enabled");
+        this.enabled = plugin.getConfigFile().getConfiguration().getBoolean("mongo.enabled");
     }
 
     public void init() {
-        String uri = plugin.getConfig().getConfiguration().getString("mongo.uri");
+        String uri = plugin.getConfigFile().getConfiguration().getString("mongo.uri");
         this.client = MongoClients.create(uri);
-        this.database = client.getDatabase(plugin.getConfig().getConfiguration().getString("mongo.database"));
+        this.database = client.getDatabase(plugin.getConfigFile().getConfiguration().getString("mongo.database"));
         this.loadCollections();
     }
 
