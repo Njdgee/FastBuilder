@@ -19,6 +19,8 @@ out/
 
 # Package Files #
 *.jar
+!libs/*.jar
+!server/*.jar
 *.war
 *.nar
 *.ear
