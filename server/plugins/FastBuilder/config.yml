@@ -1,0 +1,5 @@
+##Database (MongoDB)
+mongo:
+  enabled: true
+  uri: 'mongodb+srv://seanlynxyt:DZsfIV1mk02j1lYP@cluster0.cicftka.mongodb.net/'
+  database: 'fastbuilder'
