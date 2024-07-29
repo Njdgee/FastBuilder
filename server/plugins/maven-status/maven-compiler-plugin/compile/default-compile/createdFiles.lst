@@ -59,6 +59,7 @@ com\njdge\fastbuilder\utils\assemble\events\AssembleBoardCreatedEvent.class
 com\njdge\fastbuilder\profile\BlockClearAnimation.class
 com\njdge\fastbuilder\utils\menu\pagination\ViewAllPagesMenu.class
 com\njdge\fastbuilder\utils\TaskTicker$TickType.class
+com\njdge\fastbuilder\database\MongoManager.class
 com\njdge\fastbuilder\FastBuilder.class
 com\njdge\fastbuilder\utils\menu\button\BackButton.class
 com\njdge\fastbuilder\utils\menu\Button$1.class

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 @Getter
 @Setter
 public final class FastBuilder extends JavaPlugin {
+    private MongoClient mongo;
     @Getter
     public static FastBuilder instance;
     private ArenaManager arenaManager;
